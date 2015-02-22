@@ -1,0 +1,61 @@
+<h1>My Bookmarks</h1>
+
+<div class="panel panel-default" ng-show-auth="login">
+    <div class="panel-body">
+        <div class="row marketing">
+            <div class="form">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="description">Description</label>
+                    <div class="col-sm-10">
+                        <input type="description" class="form-control"
+                            ng-model="description"
+                            required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="link">Link</label>
+                    <div class="col-sm-10">
+                        <input type="link" class="form-control"
+                            ng-model="link"
+                            required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="tags">Tag(s)</label>
+                    <div class="col-sm-10">
+                        <input type="tags" class="form-control" ng-model="tags">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-8 col-sm-10">
+                        <button class="btn btn-info btn-raised" type="button" ng-click="sendBookmark()">Add Bookmark</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<hr>
+
+<table class="table table-condensed table-hover">
+    <thead>
+        <tr>
+            <td><strong>Date</strong></td>
+            <td><strong>Description</strong></td>
+            <td><strong>Tag(s)</strong></td>
+            <td></td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="(id, bookmark) in bookmarks | orderBy: 'date'">
+            <td>{{ bookmark.date | date:'MM/dd/yyyy' }}</td>
+            <td><a href="{{ bookmark.link }}" target="_blank">{{ bookmark.description }}</a></td>
+            <td>{{ bookmark.tags }}</td>
+            <td>
+                <!-- <button class="btn btn-info btn-raised btn-xs" type="button" ng-click="removeBookmark(id)">Delete</button>
+                <button class="btn btn-danger btn-raised btn-xs" type="button" ng-click="">Update</button> -->
+            </td>
+        </tr>
+    </tbody>
+</table>
