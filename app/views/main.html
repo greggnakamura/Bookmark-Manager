@@ -1,6 +1,6 @@
 <h1>My Bookmarks</h1>
 
-<div class="panel panel-default" ng-show-auth="login">
+<!-- <div class="panel panel-default">
     <div class="panel-body">
         <div class="row marketing">
             <div class="form">
@@ -34,7 +34,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 
 <hr>
 
@@ -48,13 +48,14 @@
         </tr>
     </thead>
     <tbody>
-        <tr ng-repeat="(id, bookmark) in bookmarks | orderBy: 'date'">
+        <tr ng-repeat="bookmark in bookmarks">
             <td>{{ bookmark.date | date:'MM/dd/yyyy' }}</td>
             <td><a href="{{ bookmark.link }}" target="_blank">{{ bookmark.description }}</a></td>
             <td>{{ bookmark.tags }}</td>
             <td>
-                <!-- <button class="btn btn-info btn-raised btn-xs" type="button" ng-click="removeBookmark(id)">Delete</button>
-                <button class="btn btn-danger btn-raised btn-xs" type="button" ng-click="">Update</button> -->
+                <button class="btn btn-info btn-raised btn-xs" type="button"
+                    ng-click="removeBookmark($index)">Delete</button>
+                <button class="btn btn-danger btn-raised btn-xs" type="button" ng-click="">Update</button>
             </td>
         </tr>
     </tbody>

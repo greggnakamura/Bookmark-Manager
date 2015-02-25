@@ -4,7 +4,7 @@
 'use strict';
 
 angular.module('firebaseApp')
-    .controller('MainCtrl', function ($scope, $timeout, $filter, FBURL) {
+    .controller('MainCtrl', function ($scope, $timeout, FBURL) {
 
         var rootRef = new Firebase(FBURL);
         var bookmarksRef = rootRef.child('bookmarks');
@@ -29,17 +29,19 @@ angular.module('firebaseApp')
                     tags: snapshotVal.tags,
                     name: snapshot.name()
                 });
+
+                $('input').val('');
             });
         });
 
         // bookmarks: change events
-        bookmarksRef.on('child_changed', function (snapshot) {
-            $timeout(function () {
-                var snapshotVal = snapshot.val();
-                var bookmark = findByName(snapshot.name());
-                bookmark.description = snapshotVal.description;
-            });
-        });
+        // bookmarksRef.on('child_changed', function (snapshot) {
+        //     $timeout(function () {
+        //         var snapshotVal = snapshot.val();
+        //         var bookmark = findByName(snapshot.name());
+        //         bookmark.description = snapshotVal.description;
+        //     });
+        // });
 
         // bookmarks: delete
         bookmarksRef.on('child_removed', function (snapshot) {
@@ -48,18 +50,18 @@ angular.module('firebaseApp')
             });
         });
 
-        // bookmarks: findByName
-        function findByName(name) {
-            var bookmarkFound = null;
-            for (var i = 0; i < $scope.bookmarks.length; i++) {
-                var currentBookmark = $scope.bookmarks[i];
-                if (currentBookmark.name === name) {
-                    bookmarkFound = currentBookmark;
-                    break;
-                }
-            }
-            return bookmarkFound;
-        }
+        //bookmarks: findByName
+        // function findByName(name) {
+        //     var bookmarkFound = null;
+        //     for (var i = 0; i < $scope.bookmarks.length; i++) {
+        //         var currentBookmark = $scope.bookmarks[i];
+        //         if (currentBookmark.name === name) {
+        //             bookmarkFound = currentBookmark;
+        //             break;
+        //         }
+        //     }
+        //     return bookmarkFound;
+        // }
 
         // bookmarks: deleteByName
         function deleteByName(name) {
@@ -73,11 +75,11 @@ angular.module('firebaseApp')
             }
         }
 
-        $scope.removeBookmark = function (id) {
-            $timeout(function () {
-                console.log(bookmarksRef);
-                bookmarksRef.$remove(id);
-            });
+        $scope.removeBookmark = function (index) {
+            var item = $scope.bookmarks[index];
+            var itemRef = bookmarksRef + '/' + item.name;
+            console.log(itemRef);
+            deleteByName(item.name);
         };
 
         // bookmarks: sendBookmark

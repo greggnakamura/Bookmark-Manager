@@ -46,5 +46,5 @@ angular
       });
   })
   .constant('FBURL', 'https://bookmark-app.firebaseio.com/')
-  .constant('MSGURL', 'https://bookmark-app.firebaseio.com/bookmarks')
+  // .constant('MSGURL', 'https://bookmark-app.firebaseio.com/bookmarks')
   .constant('loginRedirectPath', '/login');
